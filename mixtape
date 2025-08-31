@@ -1,0 +1,308 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>My Virtual Mixtape</title>
+  <meta name="description" content="A little sonic postcard — a single shareable mixtape." />
+   
+  <meta property="og:type" content="website" />
+  <meta property="og:title" content="My Virtual Mixtape" />
+  <meta property="og:description" content="A little sonic postcard — a single shareable mixtape." />
+  <meta property="og:image" content="https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1600&auto=format&fit=crop" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Favicon (emoji) -->
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ctext y='0.9em' font-size='90'%3E%F0%9F%93%84%3C/text%3E%3C/svg%3E" />
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+
+  <style>
+    :root {
+      --brand: #6c5ce7;          /* primary accent */
+      --ink: #0f0f14;            /* text on light */
+      --paper: #ffffff;          /* surfaces */
+      --muted: #8b8b95;          /* secondary text */
+      --bg: radial-gradient(1200px 700px at 20% 10%, rgba(108,92,231,.25), transparent 60%),
+             radial-gradient(800px 600px at 80% 20%, rgba(0, 220, 255, .20), transparent 60%),
+             linear-gradient(180deg, #0b0b10 0%, #111217 60%, #0b0b10 100%);
+    }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body {
+      margin: 0;
+      font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, "Helvetica Neue", Arial, "Apple Color Emoji", "Segoe UI Emoji";
+      color: #f2f5f7;
+      background: var(--bg);
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+    .wrap { min-height: 100svh; display: grid; grid-template-rows: auto 1fr auto; }
+
+    header {
+      padding: 28px clamp(16px, 4vw, 40px) 0;
+    }
+    .badge {
+      display: inline-flex; gap: .5ch; align-items: center;
+      font-size: 12px; letter-spacing: .06em; text-transform: uppercase;
+      color: #cbd3ff; background: rgba(108,92,231,.15); border: 1px solid rgba(108,92,231,.35);
+      padding: 6px 10px; border-radius: 999px;
+    }
+
+    .hero {
+      padding: 24px clamp(16px, 4vw, 40px) 10px;
+      display: grid; gap: 22px; grid-template-columns: 128px 1fr; align-items: center;
+    }
+    .cover {
+      width: 128px; height: 128px; border-radius: 20px; overflow: hidden; border: 1px solid rgba(255,255,255,.08);
+      box-shadow: 0 10px 30px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.06);
+      background: #151722 center/cover no-repeat;
+    }
+    .title {
+      margin: 0; font-size: clamp(24px, 4vw, 40px); line-height: 1.05; font-weight: 800;
+    }
+    .byline { margin: 6px 0 0; color: #b9bec9; font-weight: 400; }
+
+    .card {
+      margin: 10px clamp(16px, 4vw, 40px);
+      background: linear-gradient(180deg, rgba(255,255,255,.06), rgba(255,255,255,.02));
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 22px; overflow: clip;
+      box-shadow: 0 20px 60px rgba(0,0,0,.45);
+    }
+    .player {
+      position: relative;
+      aspect-ratio: 16/9; width: 100%;
+      background: #0e0f12;
+    }
+    iframe { width: 100%; height: 100%; border: 0; display: block; }
+
+    .meta { display: grid; gap: 16px; grid-template-columns: 1fr; padding: 18px; }
+    .message { color: #cfd6df; line-height: 1.5; }
+
+    .links { display: flex; flex-wrap: wrap; gap: 8px; }
+    .pill { color: #eaf0ff; background: rgba(108,92,231,.18); border: 1px solid rgba(108,92,231,.45); border-radius: 999px; padding: 8px 12px; text-decoration: none; font-size: 14px; }
+    .pill:hover { background: rgba(108,92,231,.28); }
+
+    .controls { display: flex; align-items: center; gap: 10px; padding: 10px 18px 20px; }
+    .btn {
+      appearance: none; border: 1px solid rgba(255,255,255,.14); background: rgba(255,255,255,.06);
+      color: #fff; padding: 10px 14px; border-radius: 12px; cursor: pointer; font-weight: 600;
+    }
+    .btn:hover { background: rgba(255,255,255,.12); }
+
+    footer { color: #93a0b4; padding: 20px clamp(16px, 4vw, 40px) 40px; font-size: 13px; display: flex; justify-content: space-between; align-items: center; gap: 10px; flex-wrap: wrap; }
+    .heart { color: var(--brand); }
+
+    /* Larger screens */
+    @media (min-width: 880px) {
+      .meta { grid-template-columns: 1fr auto; align-items: start; padding: 20px 22px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <span class="badge" aria-label="Mixtape badge">Virtual Mixtape</span>
+    </header>
+
+    <section class="hero">
+      <div class="cover" id="cover"></div>
+      <div>
+        <h1 class="title" id="title">My Virtual Mixtape</h1>
+        <p class="byline" id="byline">by You</p>
+      </div>
+    </section>
+
+    <main class="card" aria-label="Mixtape player">
+      <div class="player">
+        <iframe id="embed" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Mixtape Player"></iframe>
+      </div>
+      <div class="meta">
+        <p class="message" id="message">Press play and read the note while it loads ✨</p>
+        <div class="links" id="links"></div>
+      </div>
+      <div class="controls">
+        <button class="btn" id="shareBtn" type="button">Share this mixtape</button>
+        <button class="btn" id="copyBtn" type="button">Copy link</button>
+      </div>
+    </main>
+
+    <footer>
+      <div>Made with <span class="heart">♥</span> • Works on mobile & desktop</div>
+      <div id="credit"></div>
+    </footer>
+  </div>
+
+  <script>
+    // ==============================
+    // 1) PERSONALIZE HERE
+    // ==============================
+    const CONFIG = {
+      title: "Eren’s Summer Mixtape",
+      byline: "for you",
+      credit: "curated by Eren",
+      message: "A set of songs stitched together like a sonic postcard. If Spotify preview is short, tap the YouTube tab/URL instead.",
+      // Paste ONE of these; we auto-detect provider from the URL you give to `providerUrl`.
+      // YouTube examples: playlist or single video
+      youtubeUrl: "https://www.youtube.com/playlist?list=PLMC9KNkIncKtPzgY-5rmhvj7fax8fdxoj",
+      // Spotify examples: playlist/album/track/etc.
+      spotifyUrl: "https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M",
+      providerUrl: "https://www.youtube.com/playlist?list=PLMC9KNkIncKtPzgY-5rmhvj7fax8fdxoj", // <- set to your preferred (YouTube or Spotify) URL
+
+      // Visuals
+      coverImage: "https://images.unsplash.com/photo-1493225457124-a3eb161ffa5f?q=80&w=1000&auto=format&fit=crop",
+      theme: {
+        primary: "#6c5ce7",
+        background: null // e.g., "linear-gradient(180deg,#0e0f13,#0b0b10)" to override
+      },
+
+      // Optional quick links you want to add under the note (e.g., alt link, credits, lyrics doc)
+      links: [
+        { label: "Open on YouTube", url: "https://www.youtube.com/playlist?list=PLMC9KNkIncKtPzgY-5rmhvj7fax8fdxoj" },
+        { label: "Open on Spotify", url: "https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M" }
+      ]
+    };
+
+    // ==============================
+    // 2) BASIC RUNTIME
+    // ==============================
+    const $ = sel => document.querySelector(sel);
+
+    function applyTheme(theme) {
+      if (theme?.primary) document.documentElement.style.setProperty('--brand', theme.primary);
+      if (theme?.background) document.documentElement.style.setProperty('--bg', theme.background);
+    }
+
+    function setText(id, val) { const el = $(id); if (el && val) el.textContent = val; }
+
+    function setCover(url) { if (url) $('#cover').style.backgroundImage = `url('${url}')`; }
+
+    function setMetaFromConfig(cfg) {
+      setText('#title', cfg.title);
+      document.title = cfg.title || document.title;
+      setText('#byline', cfg.byline);
+      setText('#message', cfg.message);
+      setText('#credit', cfg.credit);
+      // Update static meta tags (best effort for crawlers that render — many don’t run JS).
+      const ogTitle = document.querySelector('meta[property="og:title"]');
+      const ogDesc  = document.querySelector('meta[property="og:description"]');
+      const ogImg   = document.querySelector('meta[property="og:image"]');
+      if (ogTitle && cfg.title) ogTitle.setAttribute('content', cfg.title);
+      if (ogDesc  && cfg.message) ogDesc.setAttribute('content', cfg.message);
+      if (ogImg   && cfg.coverImage) ogImg.setAttribute('content', cfg.coverImage);
+    }
+
+    function mountLinks(list) {
+      const box = $('#links');
+      box.innerHTML = '';
+      (list || []).forEach(({label, url}) => {
+        if (!label || !url) return;
+        const a = document.createElement('a');
+        a.className = 'pill'; a.href = url; a.target = '_blank'; a.rel = 'noopener noreferrer'; a.textContent = label;
+        box.appendChild(a);
+      });
+    }
+
+    // ==============================
+    // 3) EMBED HELPERS
+    // ==============================
+    function detectProvider(url) {
+      if (!url) return null;
+      const u = url.toLowerCase();
+      if (u.includes('youtube.') || u.includes('youtu.be')) return 'youtube';
+      if (u.includes('spotify.')) return 'spotify';
+      return null;
+    }
+
+    function ytEmbedFrom(url) {
+      try {
+        const u = new URL(url);
+        // Playlist?
+        const list = u.searchParams.get('list');
+        if (list) {
+          return `https://www.youtube-nocookie.com/embed/videoseries?list=${encodeURIComponent(list)}&modestbranding=1&rel=0`;
+        }
+        // Single video id (v=) or youtu.be/<id>
+        let id = u.searchParams.get('v');
+        if (!id && u.hostname.includes('youtu.be')) {
+          id = u.pathname.split('/').filter(Boolean)[0];
+        }
+        if (id) {
+          return `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?modestbranding=1&rel=0`;
+        }
+        // Fallback: just return original as last resort (may not embed)
+        return url;
+      } catch { return url; }
+    }
+
+    function spotifyEmbedFrom(url) {
+      try {
+        const u = new URL(url);
+        const parts = u.pathname.split('/').filter(Boolean); // [type, id]
+        const type = parts[0];
+        const id = parts[1];
+        if (type && id) {
+          return `https://open.spotify.com/embed/${encodeURIComponent(type)}/${encodeURIComponent(id)}`;
+        }
+        return url;
+      } catch { return url; }
+    }
+
+    function embedSrcFrom(url) {
+      const p = detectProvider(url);
+      if (p === 'youtube') return ytEmbedFrom(url);
+      if (p === 'spotify') return spotifyEmbedFrom(url);
+      return '';
+    }
+
+    function mountEmbed(url) {
+      const src = embedSrcFrom(url);
+      const iframe = document.getElementById('embed');
+      iframe.src = src;
+      iframe.title = `${CONFIG.title || 'Mixtape'} — ${detectProvider(url) || 'player'}`;
+    }
+
+    // ==============================
+    // 4) SHARE/COPY
+    // ==============================
+    async function sharePage() {
+      const shareData = { title: CONFIG.title || document.title, text: CONFIG.message || 'Mixtape', url: location.href };
+      if (navigator.share) {
+        try { await navigator.share(shareData); } catch (e) { /* user canceled */ }
+      } else {
+        await copyLink();
+        alert('Link copied to clipboard!');
+      }
+    }
+
+    async function copyLink() {
+      try { await navigator.clipboard.writeText(location.href); } catch {
+        // Fallback: naive approach
+        const ta = document.createElement('textarea');
+        ta.value = location.href; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove();
+      }
+    }
+
+    // ==============================
+    // 5) INIT
+    // ==============================
+    (function init(cfg) {
+      applyTheme(cfg.theme || {});
+      setCover(cfg.coverImage);
+      setMetaFromConfig(cfg);
+      mountLinks(cfg.links);
+
+      // Decide which URL to use. If providerUrl set, prefer it; else fall back to YouTube then Spotify.
+      const chosen = cfg.providerUrl || cfg.youtubeUrl || cfg.spotifyUrl;
+      mountEmbed(chosen);
+
+      document.getElementById('shareBtn').addEventListener('click', sharePage);
+      document.getElementById('copyBtn').addEventListener('click', async () => { await copyLink(); alert('Link copied!'); });
+    })(CONFIG);
+  </script>
+</body>
+</html>
