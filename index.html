@@ -3,57 +3,45 @@
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>My Virtual Mixtape — Cassette</title>
-  <meta name="description" content="A shareable virtual mixtape with a spinning cassette animation." />
+  <title>Cassette Mixtape</title>
+  <meta name="description" content="A shareable virtual mixtape with a centered cassette and hidden video—audio only." />
   <meta property="og:type" content="website" />
-  <meta property="og:title" content="My Virtual Mixtape — Cassette" />
-  <meta property="og:description" content="A shareable virtual mixtape with a spinning cassette animation." />
+  <meta property="og:title" content="Cassette Mixtape" />
+  <meta property="og:description" content="A shareable virtual mixtape with a centered cassette and hidden video—audio only." />
   <meta property="og:image" content="https://images.unsplash.com/photo-1530977875151-aae9742d632a?q=80&w=1600&auto=format&fit=crop" />
   <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
   <style>
-    :root {
-      --brand: #6c5ce7;
-      --ink: #f2f5f7;
+    :root{
+      --brand:#6c5ce7; --ink:#f2f5f7;
       --bg: radial-gradient(1200px 700px at 20% 10%, rgba(108,92,231,.25), transparent 60%),
-             radial-gradient(800px 600px at 80% 20%, rgba(0, 220, 255, .20), transparent 60%),
-             linear-gradient(180deg, #0b0b10 0%, #111217 60%, #0b0b10 100%);
+            radial-gradient(800px 600px at 80% 20%, rgba(0,220,255,.20), transparent 60%),
+            linear-gradient(180deg,#0b0b10 0%, #111217 60%, #0b0b10 100%);
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;color:var(--ink);background:var(--bg)}
-    .wrap{min-height:100svh;display:grid;grid-template-rows:auto 1fr auto}
-    header{padding:28px clamp(16px,4vw,40px) 0}
-    .badge{display:inline-flex;gap:.5ch;align-items:center;font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:#cbd3ff;background:rgba(108,92,231,.15);border:1px solid rgba(108,92,231,.35);padding:6px 10px;border-radius:999px}
-    .hero{padding:24px clamp(16px,4vw,40px) 10px;display:grid;gap:22px;grid-template-columns:128px 1fr;align-items:center}
-    .cover{width:128px;height:128px;border-radius:20px;overflow:hidden;border:1px solid rgba(255,255,255,.08);box-shadow:0 10px 30px rgba(0,0,0,.45), inset 0 0 0 1px rgba(255,255,255,.06);background:#151722 center/cover no-repeat}
-    .title{margin:0;font-size:clamp(24px,4vw,40px);line-height:1.05;font-weight:800}
-    .byline{margin:6px 0 0;color:#b9bec9;font-weight:400}
-    .card{margin:10px clamp(16px,4vw,40px);background:linear-gradient(180deg,rgba(255,255,255,.06),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.12);border-radius:22px;overflow:clip;box-shadow:0 20px 60px rgba(0,0,0,.45)}
-    .player{position:relative;aspect-ratio:16/9;width:100%;background:#0e0f12}
-    iframe{width:100%;height:100%;border:0;display:block}
-    .meta{display:grid;gap:16px;grid-template-columns:1fr;padding:18px}
-    .message{color:#cfd6df;line-height:1.5}
-    .links{display:flex;flex-wrap:wrap;gap:8px}
-    .pill{color:#eaf0ff;background:rgba(108,92,231,.18);border:1px solid rgba(108,92,231,.45);border-radius:999px;padding:8px 12px;text-decoration:none;font-size:14px}
-    .pill:hover{background:rgba(108,92,231,.28)}
-    .controls{display:flex;align-items:center;gap:10px;padding:10px 18px 20px}
-    .btn{appearance:none;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;padding:10px 14px;border-radius:12px;cursor:pointer;font-weight:600}
-    .btn:hover{background:rgba(255,255,255,.12)}
-    footer{color:#93a0b4;padding:20px clamp(16px,4vw,40px) 40px;font-size:13px;display:flex;justify-content:space-between;align-items:center;gap:10px;flex-wrap:wrap}
-    .heart{color:var(--brand)}
+    body{margin:0;font-family:Inter,system-ui,-apple-system,Segoe UI,Roboto,"Helvetica Neue",Arial;color:var(--ink);background:var(--bg);display:grid;place-items:center}
 
-    /* ===== Cassette overlay ===== */
-    .cassette{position:absolute;inset:50% auto auto 50%;translate:-50% -50%;
-      width:min(70vmin,520px);height:calc(min(70vmin,520px)*0.58);
-      border-radius:18px;background:linear-gradient(180deg,#20242b,#171a20);box-shadow:0 18px 60px rgba(0,0,0,.55), inset 0 0 0 2px rgba(255,255,255,.06);
-      pointer-events:none;opacity:.92}
-    .cassette::before,.cassette::after{content:"";position:absolute;inset:auto 0 0 0;height:22%;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02))}
-    .cassette .label{position:absolute;inset:10% 8% auto 8%;height:32%;background:#f4f6ff;color:#222;border-radius:10px;box-shadow:inset 0 0 0 2px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
-    .cassette .window{position:absolute;inset:auto 18% 26% 18%;height:28%;border-radius:10px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 2px rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;padding:0 14%}
-    .reel{width:22%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 50%, #e6e6e6 0 10%, #bbb 11% 32%, #222 33% 100%);
+    .wrap{width:clamp(300px, 80vw, 860px); display:grid; gap:24px; justify-items:center; text-align:center;}
+
+    .title{margin:0;font-size:clamp(28px,5vw,48px);line-height:1.05;font-weight:800}
+    .byline{margin:4px 0 12px;color:#b9bec9}
+
+    .stage{position:relative; display:grid; place-items:center; width:100%;}
+
+    /* Cassette centered */
+    .cassette{position:relative; width:min(84vmin, 720px); height:calc(min(84vmin, 720px)*0.58);
+      border-radius:18px; background:linear-gradient(180deg,#20242b,#171a20);
+      box-shadow:0 18px 60px rgba(0,0,0,.55), inset 0 0 0 2px rgba(255,255,255,.06);
+      user-select:none; pointer-events:none; opacity:.96}
+    .cassette::before,.cassette::after{content:"";position:absolute;left:0;right:0;height:22%;background:linear-gradient(180deg,rgba(255,255,255,.04),rgba(255,255,255,.02))}
+    .cassette::before{top:0;border-radius:18px 18px 0 0}
+    .cassette::after{bottom:0;border-radius:0 0 18px 18px}
+    .label{position:absolute;inset:10% 8% auto 8%;height:32%;background:#f4f6ff;color:#222;border-radius:10px;box-shadow:inset 0 0 0 2px rgba(0,0,0,.06);display:flex;align-items:center;justify-content:center;font-weight:800;letter-spacing:.06em;text-transform:uppercase}
+    .window{position:absolute;inset:auto 16% 24% 16%;height:30%;border-radius:10px;background:rgba(255,255,255,.06);box-shadow:inset 0 0 0 2px rgba(255,255,255,.08);display:flex;align-items:center;justify-content:space-between;padding:0 14%}
+    .reel{position:relative; width:22%;aspect-ratio:1;border-radius:50%;background:radial-gradient(circle at 50% 50%, #e6e6e6 0 10%, #bbb 11% 32%, #222 33% 100%);
       box-shadow:inset 0 0 0 3px rgba(0,0,0,.35), 0 0 0 2px rgba(255,255,255,.05)}
     .reel::before,.reel::after{content:"";position:absolute;inset:50% auto auto 50%;translate:-50% -50%;background:#111;border-radius:50%}
     .reel::before{width:44%;height:44%;box-shadow:inset 0 0 0 2px rgba(255,255,255,.08)}
@@ -72,135 +60,135 @@
     @keyframes spin{to{transform:rotate(360deg)}}
     @keyframes spin-reverse{to{transform:rotate(-360deg)}}
 
-    .cassette .accent{position:absolute;inset:auto 14px 14px auto;padding:.35rem .6rem;border-radius:999px;background:var(--brand);color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.04em}
+    .accent{position:absolute;right:14px;bottom:14px;padding:.35rem .6rem;border-radius:999px;background:var(--brand);color:#fff;font-size:.75rem;font-weight:700;letter-spacing:.04em}
+
+    /* Controls */
+    .controls{display:flex; gap:12px; align-items:center; justify-content:center}
+    .btn{appearance:none;border:1px solid rgba(255,255,255,.14);background:rgba(255,255,255,.06);color:#fff;padding:12px 16px;border-radius:12px;cursor:pointer;font-weight:700}
+    .btn:hover{background:rgba(255,255,255,.12)}
+    .hint{color:#c8cfdb; font-size:14px}
+
+    .links{display:flex;flex-wrap:wrap;gap:10px;justify-content:center}
+    .pill{color:#eaf0ff;background:rgba(108,92,231,.18);border:1px solid rgba(108,92,231,.45);border-radius:999px;padding:8px 12px;text-decoration:none;font-size:14px}
+    .pill:hover{background:rgba(108,92,231,.28)}
+
+    /* Visually hide the player but keep it active for audio */
+    #embedWrap{position:absolute; width:1px; height:1px; overflow:hidden; clip-path:inset(50%);}
   </style>
 </head>
 <body>
   <div class="wrap">
-    <header>
-      <span class="badge" aria-label="Mixtape badge">Virtual Mixtape</span>
-    </header>
-    <section class="hero">
-      <div class="cover" id="cover"></div>
-      <div>
-        <h1 class="title" id="title">Cassette Mixtape</h1>
-        <p class="byline" id="byline">by You</p>
+    <div>
+      <h1 class="title" id="title">Cassette Mixtape</h1>
+      <div class="byline" id="byline">by You</div>
+    </div>
+
+    <div class="stage">
+      <!-- Hidden iframe holder (still required to play audio from YouTube/Spotify) -->
+      <div id="embedWrap" aria-hidden="true">
+        <iframe id="embed" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Audio Player"></iframe>
       </div>
-    </section>
-    <main class="card" aria-label="Mixtape player">
-      <div class="player">
-        <!-- Cassette overlay (click-through so it won't block the iframe) -->
-        <div class="cassette" id="cassette" aria-hidden="true">
-          <div class="label" id="cassetteLabel">Side A — Mixtape</div>
-          <div class="window">
-            <div class="reel left">
-              <div class="spokes"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-            </div>
-            <div class="reel right">
-              <div class="spokes"><i></i><i></i><i></i><i></i><i></i><i></i></div>
-            </div>
-          </div>
-          <div class="accent">A60</div>
+
+      <!-- Centered cassette graphic -->
+      <div class="cassette" id="cassette">
+        <div class="label" id="label">Side A — Mixtape</div>
+        <div class="window">
+          <div class="reel left"><div class="spokes"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
+          <div class="reel right"><div class="spokes"><i></i><i></i><i></i><i></i><i></i><i></i></div></div>
         </div>
-        <iframe id="embed" allow="autoplay; clipboard-write; encrypted-media; fullscreen; picture-in-picture" allowfullscreen loading="lazy" title="Mixtape Player"></iframe>
+        <div class="accent">A60</div>
       </div>
-      <div class="meta">
-        <p class="message" id="message">Press play — the reels spin while the music plays. For best sharing reliability, use a YouTube playlist.</p>
-        <div class="links" id="links"></div>
-      </div>
-      <div class="controls">
-        <button class="btn" id="shareBtn" type="button">Share this mixtape</button>
-        <button class="btn" id="copyBtn" type="button">Copy link</button>
-      </div>
-    </main>
-    <footer>
-      <div>Made with <span class="heart">♥</span> • Works on mobile & desktop</div>
-      <div id="credit"></div>
-    </footer>
+    </div>
+
+    <div class="controls">
+      <button class="btn" id="playBtn">▶ Play</button>
+      <button class="btn" id="pauseBtn" disabled>⏸ Pause</button>
+    </div>
+    <div class="hint">For reliable autoplay across devices, click Play once. After that, tracks advance automatically.</div>
+
+    <div class="links" id="links"></div>
   </div>
 
   <script>
-    // ---------- 1) PERSONALIZE HERE ----------
+    // --------- PERSONALIZE ---------
     const CONFIG = {
       title: "Eren’s Cassette Mixtape",
       byline: "for you",
+      message: "Click play once to let audio start; the reels spin while music plays.",
       credit: "curated by Eren",
-      message: "If Spotify preview is short for some listeners, use the YouTube link.",
+      // Recommended: a YouTube PLAYLIST (auto-advances). Spotify playlist also works, but requires click and may limit previews.
       youtubeUrl: "https://www.youtube.com/playlist?list=PLMC9KNkIncKtPzgY-5rmhvj7fax8fdxoj",
       spotifyUrl: "https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M",
       providerUrl: "https://www.youtube.com/playlist?list=PLMC9KNkIncKtPzgY-5rmhvj7fax8fdxoj",
-      coverImage: "https://images.unsplash.com/photo-1530977875151-aae9742d632a?q=80&w=1200&auto=format&fit=crop",
-      theme: { primary: "#6c5ce7" },
       links: [
         { label: "Open on YouTube", url: "https://www.youtube.com/playlist?list=PLMC9KNkIncKtPzgY-5rmhvj7fax8fdxoj" },
         { label: "Open on Spotify", url: "https://open.spotify.com/playlist/37i9dQZF1DXcBWIGoYBM5M" }
       ]
     };
 
-    // ---------- Runtime helpers ----------
-    const $ = (s) => document.querySelector(s);
-    function applyTheme(t){ if(t?.primary) document.documentElement.style.setProperty('--brand', t.primary); }
-    function setText(sel, val){ const el=$(sel); if(el && val) el.textContent = val; }
-    function setCover(url){ if(url) $('#cover').style.backgroundImage = `url('${url}')`; }
+    const $ = s => document.querySelector(s);
+    function setText(sel,val){ const el=$(sel); if(el && val) el.textContent = val; }
 
-    function setMeta(cfg){
-      setText('#title', cfg.title); document.title = cfg.title || document.title; setText('#byline', cfg.byline); setText('#message', cfg.message); setText('#credit', cfg.credit);
-      const ogTitle=document.querySelector('meta[property="og:title"]'); const ogDesc=document.querySelector('meta[property="og:description"]'); const ogImg=document.querySelector('meta[property="og:image"]');
-      if (ogTitle && cfg.title) ogTitle.setAttribute('content', cfg.title);
-      if (ogDesc  && cfg.message) ogDesc.setAttribute('content', cfg.message);
-      if (ogImg   && cfg.coverImage) ogImg.setAttribute('content', cfg.coverImage);
-      const label = `Side A — ${cfg.title || 'Mixtape'}`; setText('#cassetteLabel', label);
-    }
+    // Provider helpers
+    function detectProvider(url){ if(!url) return null; const u=url.toLowerCase(); if(u.includes('youtube.')||u.includes('youtu.be')) return 'youtube'; if(u.includes('spotify.')) return 'spotify'; return null; }
 
-    function mountLinks(list){ const box=$('#links'); box.innerHTML=''; (list||[]).forEach(({label,url})=>{ if(!label||!url) return; const a=document.createElement('a'); a.className='pill'; a.href=url; a.target='_blank'; a.rel='noopener noreferrer'; a.textContent=label; box.appendChild(a); }); }
+    function ytEmbedFrom(url){ try{ const u=new URL(url); const list=u.searchParams.get('list'); if(list){ return `https://www.youtube-nocookie.com/embed/videoseries?list=${encodeURIComponent(list)}&modestbranding=1&rel=0&playsinline=1`; } let id=u.searchParams.get('v'); if(!id && u.hostname.includes('youtu.be')){ id=u.pathname.split('/').filter(Boolean)[0]; } if(id){ return `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?modestbranding=1&rel=0&playsinline=1`; } return url; }catch{ return url; } }
 
-    function detectProvider(url){ if(!url) return null; const u = url.toLowerCase(); if(u.includes('youtube.')||u.includes('youtu.be')) return 'youtube'; if(u.includes('spotify.')) return 'spotify'; return null; }
-
-    function ytEmbedFrom(url){ try{ const u=new URL(url); const list=u.searchParams.get('list'); if(list){ return `https://www.youtube-nocookie.com/embed/videoseries?list=${encodeURIComponent(list)}&modestbranding=1&rel=0`; } let id=u.searchParams.get('v'); if(!id && u.hostname.includes('youtu.be')){ id=u.pathname.split('/').filter(Boolean)[0]; } if(id){ return `https://www.youtube-nocookie.com/embed/${encodeURIComponent(id)}?modestbranding=1&rel=0`; } return url; }catch{ return url; } }
-
-    function spotifyEmbedFrom(url){ try{ const u=new URL(url); const parts=u.pathname.split('/').filter(Boolean); const type=parts[0]; const id=parts[1]; if(type&&id) return `https://open.spotify.com/embed/${encodeURIComponent(type)}/${encodeURIComponent(id)}`; return url; }catch{ return url; } }
+    function spotifyEmbedFrom(url){ try{ const u=new URL(url); const parts=u.pathname.split('/').filter(Boolean); const type=parts[0]; const id=parts[1]; if(type && id) return `https://open.spotify.com/embed/${encodeURIComponent(type)}/${encodeURIComponent(id)}`; return url; }catch{ return url; } }
 
     function embedSrcFrom(url){ const p=detectProvider(url); if(p==='youtube') return ytEmbedFrom(url); if(p==='spotify') return spotifyEmbedFrom(url); return ''; }
 
-    // Cassette reel control
-    function startSpin(){ $('#cassette')?.classList.add('spinning'); }
-    function stopSpin(){ $('#cassette')?.classList.remove('spinning'); }
+    // YouTube API — to control play/pause and get accurate state for spinning
+    let ytApiLoaded=false, ytPlayer=null, provider=null;
+    function loadYouTubeAPI(){ if(ytApiLoaded) return; ytApiLoaded=true; const s=document.createElement('script'); s.src='https://www.youtube.com/iframe_api'; document.head.appendChild(s); }
+    window.onYouTubeIframeAPIReady = function(){ const iframe=$('#embed'); if(!iframe || !/youtube\./i.test(iframe.src)) return; ytPlayer = new YT.Player('embed', { events:{ onStateChange:(e)=>{
+      // 1=PLAYING,2=PAUSED,0=ENDED,3=BUFFERING,5=CUE
+      if(e.data===1) startSpin();
+      if(e.data===2) stopSpin();
+      if(e.data===0) { /* ended a track, playlist should auto-advance; keep spinning when next track starts */ }
+    }}}); };
+
+    function startSpin(){ $('#cassette').classList.add('spinning'); $('#playBtn').disabled=true; $('#pauseBtn').disabled=false; }
+    function stopSpin(){ $('#cassette').classList.remove('spinning'); $('#playBtn').disabled=false; $('#pauseBtn').disabled=true; }
 
     function mountEmbed(url){
-      const src = embedSrcFrom(url); const iframe = $('#embed'); const provider = detectProvider(url);
-      let finalSrc = src;
+      provider = detectProvider(url);
+      const base = embedSrcFrom(url);
+      let src = base;
       if(provider==='youtube'){
-        const hasQuery = src.includes('?'); const origin = encodeURIComponent(location.origin);
-        finalSrc = src + (hasQuery?'&':'?') + `enablejsapi=1&origin=${origin}`;
+        const hasQ = base.includes('?'); const origin = encodeURIComponent(location.origin);
+        src = base + (hasQ?'&':'?') + `enablejsapi=1&origin=${origin}&autoplay=1`;
+      } else if(provider==='spotify'){
+        // Spotify ignores autoplay without a user gesture; we'll trigger play after click by focusing the iframe.
       }
-      iframe.src = finalSrc; iframe.title = `${CONFIG.title || 'Mixtape'} — ${provider || 'player'}`;
-
-      if(provider!=='youtube'){
-        // Heuristic: start spinning on first user interaction
-        const container = document.querySelector('.player');
-        container.addEventListener('click', ()=>startSpin(), { once:true });
-        document.addEventListener('visibilitychange', ()=>{ if(document.hidden) stopSpin(); });
-      }
+      const iframe = $('#embed'); iframe.src = src; iframe.title = `${CONFIG.title || 'Mixtape'} — ${provider || 'player'}`;
     }
 
-    // YouTube Iframe API to drive play/pause/ended → spin control
-    let ytApiLoaded=false; let ytPlayer=null;
-    function loadYouTubeAPI(){ if(ytApiLoaded) return; ytApiLoaded=true; const tag=document.createElement('script'); tag.src='https://www.youtube.com/iframe_api'; document.head.appendChild(tag); }
-    window.onYouTubeIframeAPIReady = function(){ const iframe=$('#embed'); if(!iframe || !/youtube\./i.test(iframe.src)) return; ytPlayer = new YT.Player('embed', { events:{ onStateChange:(e)=>{ if(e.data===1) startSpin(); if(e.data===2||e.data===0) stopSpin(); } } }); };
+    async function handlePlay(){
+      const chosen = CONFIG.providerUrl || CONFIG.youtubeUrl || CONFIG.spotifyUrl;
+      if(!provider){
+        // First click: mount and (for YT) load API
+        mountEmbed(chosen);
+        if(detectProvider(chosen)==='youtube') loadYouTubeAPI();
+      }
+      if(provider==='youtube'){ try{ ytPlayer && ytPlayer.playVideo && ytPlayer.playVideo(); }catch(e){} }
+      if(provider==='spotify'){
+        // Best effort: focus iframe to satisfy gesture requirement; user may need to click the play button inside Spotify the first time.
+        $('#embed').focus();
+      }
+      startSpin();
+    }
 
-    // Share / Copy
-    async function sharePage(){ const shareData={ title:CONFIG.title||document.title, text:CONFIG.message||'Mixtape', url:location.href }; if(navigator.share){ try{ await navigator.share(shareData);}catch(e){} } else { await copyLink(); alert('Link copied to clipboard!'); } }
-    async function copyLink(){ try{ await navigator.clipboard.writeText(location.href);}catch{ const ta=document.createElement('textarea'); ta.value=location.href; document.body.appendChild(ta); ta.select(); document.execCommand('copy'); ta.remove(); } }
+    function handlePause(){ if(provider==='youtube'){ try{ ytPlayer && ytPlayer.pauseVideo && ytPlayer.pauseVideo(); }catch(e){} } stopSpin(); }
 
-    // Init
-    (function init(cfg){
-      applyTheme(cfg.theme||{}); setCover(cfg.coverImage); setMeta(cfg); mountLinks(cfg.links);
-      const chosen = cfg.providerUrl || cfg.youtubeUrl || cfg.spotifyUrl; const provider = detectProvider(chosen);
-      if(provider==='youtube') loadYouTubeAPI();
-      mountEmbed(chosen);
-      $('#shareBtn').addEventListener('click', sharePage);
-      $('#copyBtn').addEventListener('click', async ()=>{ await copyLink(); alert('Link copied!'); });
-    })(CONFIG);
+    // Init UI
+    (function init(){
+      setText('#title', CONFIG.title); setText('#byline', CONFIG.byline); setText('#label', `Side A — ${CONFIG.title || 'Mixtape'}`);
+      const linksBox = $('#links'); (CONFIG.links||[]).forEach(({label,url})=>{ const a=document.createElement('a'); a.className='pill'; a.href=url; a.target='_blank'; a.rel='noopener'; a.textContent=label; linksBox.appendChild(a); });
+      $('#playBtn').addEventListener('click', handlePlay);
+      $('#pauseBtn').addEventListener('click', handlePause);
+      document.addEventListener('visibilitychange', ()=>{ if(document.hidden) stopSpin(); });
+    })();
   </script>
 </body>
 </html>
